@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: BlitzBuy
+  main:
+    allow-bean-definition-overriding: true
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_batch_fetch_size: 100
+    open-in-view: false
+    show-sql: true
+    database: postgresql
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:postgresql://localhost:5433/blitzbuy_db
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api/engine/
