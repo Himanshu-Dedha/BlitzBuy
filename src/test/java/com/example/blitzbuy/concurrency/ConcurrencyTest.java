@@ -4,6 +4,7 @@ import com.example.blitzbuy.data.entity.Products;
 import com.example.blitzbuy.repository.OrdersRepository;
 import com.example.blitzbuy.repository.ProductRepository;
 import com.example.blitzbuy.service.OrderService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,6 +26,13 @@ class ConcurrencyTest {
     @Autowired
     private OrdersRepository ordersRepository;
 
+
+    @BeforeEach
+    void setup() {
+        ordersRepository.deleteAll();
+        productRepository.deleteAll();
+    }
+
     @Test
     void testConcurrency_Overselling() throws InterruptedException{
 
@@ -37,7 +45,7 @@ class ConcurrencyTest {
 
         // We will spawn 20 threads (Users) to try and buy the 10 items
         int numberOfThreads = 20;
-        ExecutorService executorService = Executors.newFixedThreadPool(numberOfThreads);
+         ExecutorService executorService = Executors.newFixedThreadPool(numberOfThreads);
 
         // CountDownLatch is like a starting gun. It ensures all threads start at the same time.
         CountDownLatch latch = new CountDownLatch(numberOfThreads);

@@ -13,7 +13,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     @Override
     public Products findById(Long id) {
-        return productRepository.findById(id).orElse(null);
+        return productRepository.findByIdWithLock(id).orElse(null);
     }
 
     @Override
