@@ -13,8 +13,6 @@ public class CacheService {
         this.redisTemplate = redisTemplate;
     }
 
-    // we have to create a method that runs on startup
-
     public void cacheString(String key, String value, long timeout, TimeUnit timeUnit){
         redisTemplate.opsForValue().set(key, value, timeout, timeUnit);
     }

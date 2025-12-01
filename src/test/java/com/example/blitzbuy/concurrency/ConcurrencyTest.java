@@ -18,7 +18,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+@SuppressWarnings("java:S2925")
 @SpringBootTest
 class ConcurrencyTest {
     @Autowired
@@ -77,6 +77,7 @@ class ConcurrencyTest {
 
         // Wait for all threads to finish their work
         latch.await();
+        Thread.sleep(10000);
 
         // -------------------------------------------------
         // 3. ASSERT: The Moment of Truth
@@ -84,6 +85,7 @@ class ConcurrencyTest {
 
         long successfulOrders = ordersRepository.countByStatus(Status.PROCESSED);
         long failedOrders = ordersRepository.countByStatus(Status.FAILED);
+        long processingOrders = ordersRepository.countByStatus(Status.PROCESSING);
         long totalOrders = ordersRepository.count();
         long inventoryCount = Long.parseLong(cacheService.getCachedString("product_inventory:" + savedProduct.getId()));
 
@@ -101,6 +103,7 @@ class ConcurrencyTest {
         assertEquals(0L, inventoryCount, "Inventory should never be negative!");
         assertEquals(10L, failedOrders, "There should be 10 failed orders");
         assertEquals(10L, successfulOrders, "There should be 10 successful orders");
+        assertEquals(0L, processingOrders, "Processing orders should be 0");
 
 
 
@@ -142,7 +145,6 @@ class ConcurrencyTest {
 
         // Wait for all threads to finish their work
         latch.await();
-
         // -------------------------------------------------
         // 3. ASSERT: The Moment of Truth
         // -------------------------------------------------

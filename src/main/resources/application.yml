@@ -1,3 +1,8 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api/engine/
+
 spring:
   application:
     name: BlitzBuy
@@ -25,7 +30,14 @@ spring:
     redis:
       host: localhost
       port: 6379
-server:
-  port: 8080
-  servlet:
-    context-path: /api/engine/
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: blitzbuy_consumer_group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
