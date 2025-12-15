@@ -17,7 +17,7 @@ spring:
     show-sql: true
     database: postgresql
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
   datasource:
     url: jdbc:postgresql://localhost:5433/blitzbuy_db
     username: admin
@@ -41,3 +41,10 @@ spring:
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+logging:
+  level:
+    root: ERROR
+
+    com:
+      example:
+        blitzbuy: ERROR

@@ -10,6 +10,8 @@ public class OrderEvent {
 
     private Long productId;
 
+    private String idempotencyKey;
+
     private Long orderId;
 
     private Status status;

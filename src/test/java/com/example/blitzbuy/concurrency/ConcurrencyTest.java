@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -66,7 +67,8 @@ class ConcurrencyTest {
         for(int i=0; i<numberOfThreads; i++){
             executorService.submit(() -> {
                 try {
-                    orderManager.checkAndCreateOrders( savedProduct.getId(), 1L);
+                    UUID uid = UUID.randomUUID();
+                    orderManager.checkAndCreateOrders( savedProduct.getId(), 1L, uid);
                 }catch (Exception e) {
                     e.printStackTrace();
                 } finally {

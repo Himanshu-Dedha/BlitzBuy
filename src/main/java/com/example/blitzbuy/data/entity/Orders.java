@@ -8,7 +8,8 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name="orders")
+@Table(name="orders",
+        uniqueConstraints = @UniqueConstraint(columnNames = "idempotency_key"))
 public class Orders {
 
     @Id
@@ -22,6 +23,9 @@ public class Orders {
 
     @Column(name="product_id")
     private Long productId;
+
+    @Column(name = "idempotency_key", nullable = false)
+    private String idempotencyKey;
 
     @Enumerated(EnumType.STRING)
     @Column(name="status")

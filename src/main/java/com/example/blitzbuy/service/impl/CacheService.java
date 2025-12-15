@@ -28,4 +28,8 @@ public class CacheService {
     public Long decrementCounter(String key){
         return redisTemplate.opsForValue().decrement(key);
     }
+
+    public void setTTL(String key, long timeout, TimeUnit timeUnit){
+        redisTemplate.expire(key, timeout, timeUnit);
+    }
 }
